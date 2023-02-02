@@ -32,3 +32,7 @@ Note: Make sure you have all the dependencies installed. Sometimes you need to i
 2. Run `Scripts\activate` (make sure it's backward slash)
 3. Run `flask --app app run`
 4. Open localhost link using Ctrl + click
+
+## Install dependencies from requirements.txt
+1. Run `pip install -r requirements.txt` in the same folder
+2. That's it
