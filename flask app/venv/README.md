@@ -17,6 +17,6 @@ Note: Make sure you have all the dependencies installed. Sometimes you need to i
 
 ## Run normally
 1. cd into `venv` folder
-2. Run `Scripts\activate`
+2. Run `Scripts\activate` (make sure it's backward slash)
 3. Run `flask --app app run`
 4. Open localhost link using Ctrl + click
