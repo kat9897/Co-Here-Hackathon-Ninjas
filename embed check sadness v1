@@ -1,0 +1,132 @@
+import cohere
+import numpy as np
+import gzip
+import json
+from random import sample
+
+co = cohere.Client("7AdE0NfrjyQCJ3WSTD7iJvRvMZC5xPWHKKQZmHTW")
+
+# get the embeddings
+phrases = ["i love soup", "soup is my favorite", "london is far away"]
+s = ["I feel so lost and alone", "'I not good'", "this is a non happy sentence", "unhappy", "depressed", "downcast", "downhearted", "miserable", "gloomy", "melancholic", "disconsolate", "dejected", "despondent", "heartbroken", "displeased", "dismayed", "disappointed", "grief-stricken", "distraught", "I just feel so alone.", "I don't know why I'm so sad all the time.", "I can't shake this feeling of despair.", "I don't see a way out of this.", "I feel like I'm stuck in a never-ending cycle of sadness.", "I don't know how to be happy again.", "I feel like I'm falling apart.", "I can't find any joy in anything anymore.", "I just want to stay in bed all day and not face the world.", "I don't know what's wrong with me, but I can't seem to shake this sadness.", "overwhelmed", "devastated", "wretched", "forlorn", "lonely", "bereft", "tormented", "anguished", "agony", "heartache", "pain", "suffering", "sorrowful", "mournful", "doleful", "sorry", "regretful", "rueful", "guilty", "remorseful", "ashamed", "contrite", "apologetic", "penitent", "self-reproachful","I am very sad", 'im so upset that happened',"I am sad", "sad", 'im feeling emotionally distressed', "emotional", "unhappy", "unfulfilled", "Everything seems off today", "I'm feeling a bit down lately.", "I'm not sure what's wrong with me, but I just can't seem to snap out of this funk.", "I hate my job, I'm in a rut, and I just don't know what to do to make things better.", "I'm just so tired of feeling like this.", "I wish I could just feel happy again.", "I want to be able to smile again.", "I miss my old self.", "I miss the way things were before.", "I don't know how much longer I can take this.", "I just want to be happy again.", "I'm just so tired.", "I feel like I've been run over by a truck.", "I can't seem to shake this cold.", "I've been so busy lately.", "I'm just so stressed out.", "I feel like I'm losing my mind.", "I'm just so unhappy.", "I feel like I'm in a total run.", "I feel like I'm at the end of my rope.", "I feel like I'm just so tired.", "I'm just so tired all the time.", "I'm just so stressed all the time.", "I'm just so worried all the time.", "I'm just so angry all the time.", "I'm just so frustrated all the time.", "I'm just so overwhelmed all the time.", "I'm just so busy all the time.", "I'm just so tired of being worried all the time", "I'm just so tired all the time.", "I'm just so stressed all the time.", "I'm just so tired all the time.", "I'm just so stressed all the time.", "I'm just so overwhelmed all the time.", "I'm feeling a bit down today.", "I'm just really tired right now.", "I don't know, I just feel kind of down today.", "I feel like I've been doing a lot of work lately.", "I just feel like I need a break.", "I feel like I'm always working.", "I just feel like I need some time for myself.", "I feel like I'm always being asked to do things.", "I just feel like I need to say no to things.", "I just feel like I need to focus on myself right now.", "I'm doing well, thank you.", "I'm happy just to be here.", "I'm looking forward to the future.", "I'm focusing on the positive.", "I'm grateful for what I have.", "I'm willing to work hard for what I want.", "I'm going to stay positive and focus on the good.", "I'm going to keep working towards my goals.", "I'm going to keep trying to be happy.", "I'm just going to keep trying.", "I'm so sad that I can't seem to shake this cold.", "I'm so sad that I can't seem to be happy anymore."]
+
+with gzip.open('data.jsonl.gz', 'r') as fin:
+  for line in fin:
+    data = json.loads(line.decode('utf-8'))
+   # print(data["label"])
+    if(data["label"] == 0):
+      s.append(data["text"])
+
+#print(s)
+s = sample(s, 1000)
+s = co.embed(s).embeddings
+#print(s)
+(soup1, soup2, london) = co.embed(phrases).embeddings
+
+# response = co.generate(
+#
+#   model='command-xlarge-20221108',
+# # in a conversation while trying to hide it or convey theyselves as having a more positive emotion
+#   prompt='''
+#   remove the numbers and change these sentences into a python list in the form s = ['blabla', 'afsga', . . .]
+#    1. I'm feeling a bit down lately.
+# 2. I'm not sure what's wrong with me, but I just can't seem to snap out of this funk.
+# 3. I hate my job, I'm in a rut, and I just don't know what to do to make things better.
+# 4. I'm just so tired of feeling like this.
+# 5. I wish I could just feel happy again.
+# 6. I want to be able to smile again.
+# 7. I miss my old self.
+# 8. I miss the way things were before.
+# 9. I don't know how much longer I can take this.
+# 10. I just want to be happy again.
+# 1. "I'm just so tired."
+# 2. "I feel like I've been run over by a truck."
+# 3. "I can't seem to shake this cold."
+# 4. "I've been so busy lately."
+# 5. "I'm just so stressed out."
+# 6. "I feel like I'm losing my mind."
+# 7. "I'm just so unhappy."
+# 8. "I feel like I'm in a total run."
+# 9. "I feel like I'm at the end of my rope."
+# 10. "I feel like I'm just so tired."
+# 1. I'm just so tired all the time.
+# 2. I'm just so stressed all the time.
+# 3. I'm just so worried all the time.
+# 4. I'm just so angry all the time.
+# 5. I'm just so frustrated all the time.
+# 6. I'm just so overwhelmed all the time.
+# 7. I'm just so busy all the time.
+# 10. I'm just so tired of being worried all the time
+# 1. I'm just so tired all the time.
+# 2. I'm just so stressed all the time.
+# 8. I'm just so tired all the time.
+# 9. I'm just so stressed all the time.
+# 10. I'm just so overwhelmed all the time.
+# 1. "I'm feeling a bit down today."
+# 2. "I'm just really tired right now."
+# 3. "I don't know, I just feel kind of down today."
+# 4. "I feel like I've been doing a lot of work lately."
+# 5. "I just feel like I need a break."
+# 6. "I feel like I'm always working."
+# 7. "I just feel like I need some time for myself."
+# 8. "I feel like I'm always being asked to do things."
+# 9. "I just feel like I need to say no to things."
+# 10. "I just feel like I need to focus on myself right now."
+# 1. I'm doing well, thank you.
+# 2. I'm happy just to be here.
+# 3. I'm looking forward to the future.
+# 4. I'm focusing on the positive.
+# 5. I'm grateful for what I have.
+# 6. I'm willing to work hard for what I want.
+# 7. I'm going to stay positive and focus on the good.
+# 8. I'm going to keep working towards my goals.
+# 9. I'm going to keep trying to be happy.
+# 10. I'm just going to keep trying.
+# 1. I'm so sad that I can't seem to shake this cold.
+# 10. I'm so sad that I can't seem to be happy anymore.
+#    ''',
+#
+#   max_tokens=1200,
+#
+#   temperature=2,
+#
+#   k=0,
+#
+#   p=0.75,
+#
+#   frequency_penalty=0,
+#
+#   presence_penalty=0,
+#
+#   stop_sequences=[],
+#
+#   return_likelihoods='NONE')
+
+#print('Prediction: {}'.format(response.generations[0].text))
+
+# compare them
+def calculate_similarity(a, b):
+  return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+
+print(calculate_similarity(soup1, soup2)) # 0.9 - very similar!
+print(calculate_similarity(soup1, london)) # 0.3 - not similar!
+total = 0
+num = 0
+u_sad = ['i cannot believe my misfortune']
+
+score = co.embed(u_sad).embeddings
+print(score)
+sad = False
+print (len(s))
+for thing in s:
+  if(calculate_similarity(thing, score[0]) > 0.55):
+    sad = True
+  total += calculate_similarity(thing, score[0])
+  num += 1
+print(total/num)
+if(sad):
+  print("u sad")
+else:
+  print("u not sad")
+
+
