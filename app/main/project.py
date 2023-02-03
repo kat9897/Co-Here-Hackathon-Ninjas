@@ -73,20 +73,17 @@ def generate(text):
 
 # Generate therapist-like response to certain emotion
 def therapist(text):
-    prompt = f'Generate a therapist\'s helpful response and suggestions to a patient feeling the emotion {text}.'
+    prompt = f'Generate a therapist\'s empathetic response and advice for patients feeling this emotion: {text}. Make it only one paragraph. Finish off a sentence early if you don\'t have enough words.'
     GENERATE = 1
-    print(prompt)
-    try:
-        response = co.generate(
-            model='command-xlarge-nightly',
-            prompt=prompt,
-            max_tokens=300,
-            temperature=0.9,
-            end_sequences=["--"]
-        )
-        res = str(response.generations[0].text)
-    except:
-        res = "An error has occurred."
+    #print(prompt)
+    response = co.generate(
+        model='command-xlarge-nightly',
+        prompt=prompt,
+        max_tokens=100,
+        temperature=0.9,
+        end_sequences=["--"]
+    )
+    res = str(response.generations[0].text)
     return res
     # for i in range(GENERATE):
     #     answer = response.generations[0].text

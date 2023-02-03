@@ -27,12 +27,12 @@ def text(message):
         user = "You"
     else:
         user = session.get('name')
-    send_message(msg, room)
+    send_message(user + ": " + msg, room)
     #emit('message', {'msg': user + ': ' + msg}, room=room)
-    print("Person's message: " + msg)
+    #print("Person's message: " + msg)
     therapist_res = therapist(msg)
-    print("Therapist: " + therapist_res)
-    send_message(therapist_res, room)
+    #print("Therapist: " + therapist_res)
+    send_message("Therapist: " + therapist_res, room)
     #emit('message', {'msg': "Therapist: " + therapist_res}, room=room)
 
 
