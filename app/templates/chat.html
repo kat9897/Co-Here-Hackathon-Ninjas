@@ -1,19 +1,38 @@
 <html>
   <head>
     <title>Cohere Hackathon</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='style.css') }}"
+    />
     <script type="text/javascript" charset="utf-8">
+      function postMessage(message, type) {
+        let chatHtml = document.createElement("div");
+        chatHtml.className = "chat-msg " + type;
+        chatHtml.innerHTML = `
+            <div class="cm-msg-text">
+                ${message}
+            </div>
+           `;
+
+        const chatLogs = document.getElementById("chat-logs");
+        chatLogs.appendChild(chatHtml);
+        chatLogs.scrollTo(0, chatLogs.scrollHeight);
+      }
       window.onload = function () {
         document
           .getElementById("chat-form")
           .addEventListener("submit", function (e) {
             e.preventDefault();
-            let message = e.target.elements["message"].value;
+            let message = e.target.elements["chat-input"].value;
             e.target.reset();
-            document.getElementById("chat").innerHTML +=
-              "You: " + message + "\n";
-            e.target.elements["message"].disabled = true;
-            e.target.elements["message"].placeholder = "waiting for response...";
-            e.target.elements["submit"].disabled = true;
+            postMessage(message, "self");
+
+            e.target.elements["chat-input"].disabled = true;
+            e.target.elements["chat-input"].placeholder =
+              "waiting for response...";
+            e.target.elements["chat-submit"].disabled = true;
             fetch("/chat", {
               method: "POST",
               headers: {
@@ -26,21 +45,54 @@
               .then((res) => res.json())
               .then((res) => {
                 console.log(res);
-                document.getElementById("chat").innerHTML +=
-                  "Therapist: " + res.content + "\n";
-                e.target.elements["message"].disabled = false;
-                e.target.elements["message"].placeholder =
-                  "Enter your message here then press the Enter key";
-                  e.target.elements["submit"].disabled = false;
+                postMessage(res.content, "user");
+                e.target.elements["chat-input"].disabled = false;
+                e.target.elements["chat-input"].placeholder =
+                  "Send a message...";
+                e.target.elements["chat-submit"].disabled = false;
               });
           });
       };
     </script>
   </head>
   <body>
-    <h1>Cohere Hackathon</h1>
+    <div id="body">
+      <div class="chat-box">
+        <div class="chat-box-header">Therapist Bot</div>
+        <div class="chat-box-body">
+          <div class="chat-box-overlay"></div>
+          <div id="chat-logs" class="chat-logs">
+            <div class="chat-msg user">
+              <div class="cm-msg-text">
+                Hi! I'm a therapist bot. Please send me your thoughts and I will
+                try my best to give you a helpful response.
+              </div>
+            </div>
+          </div>
+          <!--chat-log -->
+        </div>
+        <div class="chat-input">
+          <form id="chat-form">
+            <input
+              type="text"
+              id="chat-input"
+              placeholder="Send a message..."
+              name="chat-input"
+            />
+            <button
+              type="submit"
+              class="chat-submit"
+              id="chat-submit"
+              name="chat-submit"
+            >
+              Send
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
 
-    <textarea id="chat" cols="80" rows="20"></textarea><br /><br />
+    <!-- <textarea id="chat" cols="80" rows="20"></textarea><br /><br />
     <form id="chat-form">
       <input
         id="text"
@@ -48,7 +100,12 @@
         placeholder="Enter your message here then press the Enter key"
         name="message"
       />
-      <input type="submit" value="Send" name="submit"/><br /><br />
-    </form>
+      <input type="submit" value="Send" name="submit" /><br /><br />
+    </form> -->
   </body>
+  <footer>
+    <a href="https://codepen.io/shivapandey/pen/dWdRYM" title="template UI"
+      >Chat UI by Shiva Pandey</a
+    >
+  </footer>
 </html>
