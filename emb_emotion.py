@@ -64,7 +64,7 @@ def get_emotion(query):
     results = pd.DataFrame(data={'texts': df.iloc[similar_item_ids[0]]['text'],
                                  'distance': similar_item_ids[1]})
 
-
+    #print (similar_item_ids[1][0])
     #print(f"Input:'{query}'\nEmotion:")
     r = str(results).strip()
     i = 0
@@ -84,23 +84,23 @@ def get_emotion(query):
     SURPRISE = 5
     if emotion == SADNESS:
         #print("You are feeling the emotion of sadness")
-        return "sadness"
+        return "sadness," + str(similar_item_ids[1][0])
     elif emotion == JOY:
         #print("You are feeling the emotion of joy")
-        return "joy"
+        return "joy," + str(similar_item_ids[1][0])
     elif emotion == LOVE:
         #print("You are feeling the emotion of love")
-        return "love"
+        return "love," + str(similar_item_ids[1][0])
     elif emotion == ANGER:
         #print("You are feeling the emotion of anger")
-        return "anger"
+        return "anger," + str(similar_item_ids[1][0])
     elif emotion == FEAR:
         #print("You are feeling the emotion of fear")
-        return "fear"
+        return "fear," + str(similar_item_ids[1][0])
     elif emotion == SURPRISE:
         #print("You are feeling the emotion of surprise"
-        return "surprise"
+        return "surprise," + str(similar_item_ids[1][0])
 
     #print(labels[681])
     #print(labels[747])
-#print(get_emotion("I'm happy"))
+#print(get_emotion("im terrified at this moment"))
