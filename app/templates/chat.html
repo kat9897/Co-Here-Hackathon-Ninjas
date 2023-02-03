@@ -1,45 +1,54 @@
 <html>
-    <head>
-        <title>Cohere Hackathon</title>
-        <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
-        <script type="text/javascript" src="//cdn.socket.io/4.4.1/socket.io.min.js"></script>
-        <script type="text/javascript" charset="utf-8">
-            var socket;
-            $(document).ready(function(){
-                socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
-                socket.on('connect', function() {
-                    socket.emit('joined', {});
-                });
-                socket.on('status', function(data) {
-                    $('#chat').val($('#chat').val() + '<' + data.msg + '>\n');
-                    $('#chat').scrollTop($('#chat')[0].scrollHeight);
-                });
-                socket.on('message', function(data) {
-                    $('#chat').val($('#chat').val() + data.msg + '\n');
-                    $('#chat').scrollTop($('#chat')[0].scrollHeight);
-                });
-                $('#text').keypress(function(e) {
-                    var code = e.keyCode || e.which;
-                    if (code == 13) {
-                        text = $('#text').val();
-                        $('#text').val('');
-                        socket.emit('text', {msg: text});
-                    }
-                });
-            });
-            function leave_room() {
-                socket.emit('left', {}, function() {
-                    socket.disconnect();
+  <head>
+    <title>Cohere Hackathon</title>
+    <script type="text/javascript" charset="utf-8">
+      window.onload = function () {
+        document
+          .getElementById("chat-form")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            let message = e.target.elements["message"].value;
+            e.target.reset();
+            document.getElementById("chat").innerHTML +=
+              "You: " + message + "\n";
+            e.target.elements["message"].disabled = true;
+            e.target.elements["message"].placeholder = "waiting for response...";
+            e.target.elements["submit"].disabled = true;
+            fetch("/chat", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                content: message,
+              }),
+            })
+              .then((res) => res.json())
+              .then((res) => {
+                console.log(res);
+                document.getElementById("chat").innerHTML +=
+                  "Therapist: " + res.content + "\n";
+                e.target.elements["message"].disabled = false;
+                e.target.elements["message"].placeholder =
+                  "Enter your message here then press the Enter key";
+                  e.target.elements["submit"].disabled = false;
+              });
+          });
+      };
+    </script>
+  </head>
+  <body>
+    <h1>Cohere Hackathon</h1>
 
-                    // go back to the login page
-                    window.location.href = "{{ url_for('main.index') }}";
-                });
-            }
-        </script>
-    </head>
-    <body>
-        <h1>Cohere Hackathon</h1>
-        <textarea id="chat" cols="80" rows="20"></textarea><br><br>
-        <input id="text" size="80" placeholder="Enter your message here"><br><br>
-    </body>
+    <textarea id="chat" cols="80" rows="20"></textarea><br /><br />
+    <form id="chat-form">
+      <input
+        id="text"
+        size="80"
+        placeholder="Enter your message here then press the Enter key"
+        name="message"
+      />
+      <input type="submit" value="Send" name="submit"/><br /><br />
+    </form>
+  </body>
 </html>

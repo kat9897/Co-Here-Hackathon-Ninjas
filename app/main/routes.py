@@ -1,29 +1,17 @@
-from flask import session, redirect, url_for, render_template, request
+from flask import jsonify, render_template, request
+from .Project import therapist
 from . import main
-from .forms import LoginForm
 
 
-@main.route('/', methods=['GET', 'POST'])
+@main.route('/', methods=['GET'])
 def index():
-    """Login form to enter a room."""
-    form = LoginForm()
-    if form.validate_on_submit():
-        session['name'] = form.name.data
-        session['room'] = form.room.data
-        return redirect(url_for('.chat'))
-    elif request.method == 'GET':
-        form.name.data = session.get('name', '')
-        form.room.data = session.get('room', '')
 
-    return render_template('chat.html', room='test')
+    return render_template('chat.html')
 
 
-@main.route('/chat')
+@main.route('/chat', methods=['POST'])
 def chat():
-    """Chat room. The user's name and room must be stored in
-    the session."""
-    name = session.get('name', '')
-    room = session.get('room', '')
-    if name == '' or room == '':
-        return redirect(url_for('.index'))
-    return render_template('chat.html', name=name, room=room)
+    body = request.json
+
+    res = therapist(body["content"])
+    return jsonify({"content": res})

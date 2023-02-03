@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 # Load in environment variable secrets
 load_dotenv('.env')
 COHERE_API_KEY = os.environ.get("COHERE_API_KEY")
+COHERE_API_KEY = "UB5I1scUMGv1XHS8i9SISKx3xIpTTKZwyGGngndB"
 co = cohere.Client(COHERE_API_KEY)
 
 # Main function
