@@ -63,7 +63,7 @@ def split_input_self(user_input):
 
 
 def classify_emotion(user_prompt):
-    user_chunks = split_input_self(user_prompt)
+    user_chunks = split_input(user_prompt.strip())
 
     response = co.classify(
         model='0c667180-ef42-4c4d-aee8-e6fa29177e43-ft',
