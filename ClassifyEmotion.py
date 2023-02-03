@@ -45,7 +45,7 @@ def feedback(results, if_print=False):
         evaluation.append(coefficient * average * max(data))
     if if_print:
         print(evaluation)
-    return KEY[np.argmax(evaluation)]
+    return KEY[np.argmax(evaluation)], 2*np.max(evaluation)
 
 
 def split_input(user_input):
@@ -70,5 +70,5 @@ def classify_emotion(user_prompt):
         inputs=user_chunks)
 
     results = classify_chunks(response)
-    emotion = feedback(results)
-    return emotion
+    emotion, confidence = feedback(results)
+    return emotion, confidence
