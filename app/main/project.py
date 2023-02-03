@@ -4,11 +4,14 @@ import numpy as np
 import cohere
 from cohere.classify import Example
 import os
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
+#from .secret import *
 
 # Load in environment variable secrets
-load_dotenv('.env')
-COHERE_API_KEY = os.environ.get("COHERE_API_KEY")
+#load_dotenv('env')
+#COHERE_API_KEY = os.environ.get("COHERE_API_KEY")
+COHERE_API_KEY = "HXnG1OBJyPXYRxxKImeUE3S9RW25fuyDOFNiRxEC"
+#print(COHERE_API_KEY)
 co = cohere.Client(COHERE_API_KEY)
 
 # Main function
@@ -73,14 +76,17 @@ def therapist(text):
     prompt = f'Generate a therapist\'s helpful response and suggestions to a patient feeling the emotion {text}.'
     GENERATE = 1
     print(prompt)
-    response = co.generate(
-        model='command-xlarge-nightly',
-        prompt=prompt,
-        max_tokens=300,
-        temperature=0.9,
-        end_sequences=["--"]
-    )
-    res = response.generations[0].text
+    try:
+        response = co.generate(
+            model='command-xlarge-nightly',
+            prompt=prompt,
+            max_tokens=300,
+            temperature=0.9,
+            end_sequences=["--"]
+        )
+        res = str(response.generations[0].text)
+    except:
+        res = "An error has occurred."
     return res
     # for i in range(GENERATE):
     #     answer = response.generations[0].text
