@@ -9,7 +9,7 @@ There are three essential components in the model:
 
 1. Cohere Classify model that has been trained on almost 500,000 real training data ‎‎(sentence, emotion) and is capable of using NLP to truncate and classify large ‎prompts into a range of emotions.
    
-2. Cohere Embedding + Sklearn model that transforms the user prompt to a list of ‎floats (embeds) and performs semantic search in a massive database of real, ‎labeled, embedded sentences to find the closest matching example.‎
+2. Cohere Embed + Sklearn model that transforms the user prompt to a list of ‎floats (embeds) and performs semantic search in a massive database of real, ‎labeled, embedded sentences to find the closest matching example.‎
    
 3. Cohere Generate model that receives user input, classified emotions, previous ‎calls, and some hard coded psychological information to generate an accurate ‎therapist response.
 
