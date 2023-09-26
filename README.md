@@ -13,7 +13,7 @@ There are three essential components in the model:
    
 3. Cohere Generate model that receives user input, classified emotions, previous ‎calls, and some hard coded psychological information to generate an accurate ‎therapist response.
 
-The model has memory of past inputs and thus can create a ‎coherent conversation.‎ These components work together in the back end, while the front end is a webpage ‎that user can access to send information and read model's responses.‎ Ultimately, the project aims to create an ongoing conversation with Co:DY and user, ‎providing emotional support, helping users work through problems, and offering ‎tailored advice.‎
+The model has memory of past inputs and thus can create a ‎coherent conversation.‎ These components work together in the back end, while the front end is a webpage ‎that user can access to send information and read model's responses.‎ Ultimately, the project aims to create an ongoing conversation with CoDY and user, ‎providing emotional support, helping users work through problems, and offering ‎tailored advice.‎
 
 # Run
 To run this application install the requirements in a virtual environment, run `python chat.py` and visit `http://localhost:5000` on one or more browser tabs.
