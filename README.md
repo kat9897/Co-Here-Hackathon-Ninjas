@@ -1,4 +1,7 @@
 # CoDY: The AI Therapist
+
+[Cohere Global Hackathon - Lablab.ai](https://lablab.ai/event/cohere-hackathon/the-cyber-savvy-ninjas/cody-the-ai-therapist)
+
 ![image](https://github.com/kat9897/Co-Here-Hackathon-Ninjas/assets/90617686/346d891d-e13d-4510-98fb-a286c208c0ee)
 
 # About
