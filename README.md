@@ -7,7 +7,7 @@
 # About
 CoDY, the AI Therapist is a cutting-edge technology that utilizes advanced language models to simulate a conversation between a user and a therapist. The goal of CoDY is to provide emotional support, help users work through their problems, and offer tailored advice in a confidential and convenient setting.
 
-![image](https://github.com/Adibvafa/CoDY/assets/90617686/11caadee-aa25-4f0d-a626-b7dc515c1302)
+![image](https://github.com/Adibvafa/CoDY/assets/90617686/4a5948f3-184c-4d2f-bce1-a9bb7fa5b6db)
 
 
 # How It Works
