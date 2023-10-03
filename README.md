@@ -5,7 +5,7 @@
 ![image](https://github.com/kat9897/Co-Here-Hackathon-Ninjas/assets/90617686/346d891d-e13d-4510-98fb-a286c208c0ee)
 
 # About
-CoDY, the AI Therapist is a cutting-edge technology that utilizes advanced language models to simulate a conversation between a user and a therapist. The goal of CoDY is to provide emotional support, help users work through their problems, and offer tailored advice in a confidential and convenient setting.
+CoDY, The AI Therapist, uses cutting-edge Large Language Models (LLMs) and Natural Language Processing (NLP) technologies from Cohere to simulate an empathic conversation between a user and a therapist. The goal of CoDY is to provide emotional support, help users work through their problems, and offer tailored advice in a confidential and convenient setting.
 
 ![image](https://github.com/Adibvafa/CoDY/assets/90617686/4a5948f3-184c-4d2f-bce1-a9bb7fa5b6db)
 
